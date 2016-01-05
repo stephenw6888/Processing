@@ -1,0 +1,172 @@
+1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        var ballX;//The ball width
+        var ballY;//The ball height
+        var ballSpeedX = 5;//The ball width speed
+        var ballSpeedY = 5;//The ball height speed
+        var paddleHeight = 10;// Paddle Height
+        var t = 0;//Variable for t is 0
+        function setup() {//Set code
+            createCanvas(800, 600);//Canvas size
+            noCursor();//No mouse cursor
+            ballX = width / 2;//Ball Size by X
+            ballY = height / 2;//Ball size by Y
+        }
+
+        function draw() {//Draw code
+            background(128);//Background color gray
+            moveBall();//Ball move vertical
+            checkCollide();//Ball collide with shape/ wall
+            drawPaddle();//Paddle is being drawn
+            drawBall();//Draw the ball
+
+            fill(0);// Rect color
+            rect(0, 0, 800, 100);// Rect size
+        }
+
+        function moveBall() {//Move the ball
+            ballX = ballX + ballSpeedX;//Ball by X speed
+            ballY = ballY + ballSpeedY;//bALL BY Y speed
+
+            console.log("ballSpeedX: " + ballSpeedX +//Encoding the ball 
+                ", ballSpeedY: " + ballSpeedY);//Encoding the ball
+        }
+
+        function checkCollide() {//Collision
+            //Ball collide X
+            if (ballX < 0 || ballX > width) {//Ball collide with width
+                ballSpeedX = ballSpeedX * -1.1;//Ball Speed after collision
+            }
+            //Ball collide Y
+            if (ballY < 0) {//Ball by Y
+                ballSpeedY = ballSpeedY * -1.1;//Ball speed after collision
+            }
+            //Paddle
+            if (ballY > height - paddleHeight) {//Paddle height
+                if (ballX > mouseX && ballX < mouseX + 200) {//Paddle with mouse collision
+                    ballSpeedY = ballSpeedY * -1.1;//Ball speed Y after collision with paddle
+                    t++//Increases point for colliding with paddle
+                }
+                else {//Else if ball doesn't hit paddle
+                    textSize(20) // Text size increase
+                    textAlign(CENTER) // The text align in center
+                    text("GAME OVER! SORRY TRY AGAIN AND KEEP PLAYING :)", width / 2, height / 2); // Change the text of this by adding - SORRY TRY AGAIN AND KEEP PLAYING :)
+                    
+                    text("Score", width / 2 - 20, height / 2 - 100);//Text score
+                    text(t, width / 2 - 20, height / 2 - 100, 70, 80)//Text t by points
+                    noLoop();//No loop
+                    
+                }
+            }
+        }
+
+        function drawBall() {//Ball drawn
+            noStroke();//No stroke outline
+            ellipse(ballX, ballY, 10, 10); // Changes the size of ball by 10
+        }
+
+        function drawPaddle() {//Drawn paddle
+            fill(0, 255, 255) // Change the color of both ball and paddle
+            strokeWeight(3); // Changes the color lining by 1
+            rect(mouseX, height - paddleHeight - 4, 20, paddleHeight); // Drastically changes the paddle from 200 to 20
+
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
